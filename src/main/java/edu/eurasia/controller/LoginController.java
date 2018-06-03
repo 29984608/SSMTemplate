@@ -19,10 +19,12 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     LoginService loginService;
+
     @RequestMapping("/index")
     public String index(){
         return "index";
     }
+
     @RequestMapping("/login")
     @ResponseBody
     public Map<String, Object> login(HttpSession session, User user) throws  Exception{
@@ -34,6 +36,17 @@ public class LoginController {
         }else{
             result.put("success",false);
         }
+        return result;
+    }
+
+    public Map<String,Object> isNotSession(HttpSession session){
+        Map<String,Object> result = new HashMap<String, Object>();
+        Boolean isNos = true;
+        User user = (User) session.getAttribute("userInfo");
+        if (user == null){
+            isNos = false;
+        }
+        result.put("isNos",isNos);
         return result;
     }
 }

@@ -1,66 +1,152 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page isELIgnored="false" %>
-<html>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="login/css/style.css" type="text/css" media="all">
-    <link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script type="text/javascript" src="public/build/js/jquery.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("a[href='#']").mouseenter(function () {
-                $(this).css("color","#FFEB3B");
-            });
-            $("a[href='#']").mouseleave(function () {
-                $(this).css("color","#FFF");
-            });
-        });
-    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Eurasia DSS后台管理系统</title>
+    <link rel="shortcut icon" href="login/public/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="login/public/css/site.css" id="siteStyle">
+    <link rel="stylesheet" href="login/public/css/login.css">
+    <link rel="stylesheet" href="login/public/css/web-icons.css">
+    <link rel="stylesheet" href="login/public/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="login/public/plugins/layui/css/layui.css"/>
+    <script type="text/javascript" src="login/public/js/jquery.min.js"></script>
+    <script type="text/javascript" src="login/public/js/jquery.js"></script>
+    <!-- JS -->
+    <script src="login/public/plugins/layui/layui.js"></script>
+    <script src="login/public/js/bootstrap.js"></script>
+    <script src="login/public/js/bootstrap-select.min.js"></script>
+    <script src="login/public/js/formValidation.min.js" data-name="formValidation"></script>
+    <script src="login/public/js/bootstrap.min.js" data-deps="formValidation"></script>
 </head>
-<body>
-<h1>SLEEK LOGIN FORM</h1>
-<h2>Log in to your Account</h2>
-<div class="containeragileits">
-    <form action="" method="post">
-        <input type="text"  placeholder="USERNAME" required="" id="user_username">
-        <input type="password"  placeholder="PASSWORD" required="" id="user_password">
-        <ul class="agileinfotickwthree">
-            <li>
-                <input type="checkbox" id="brand1" value="">
-                <label for="brand1"><span></span>Remember me</label>
-                <a href="#" style="float: right;color: #FFF;font-size: 16px;">Forget the password</a>
-            </li>
-        </ul>
-        <div class="aitssendbuttonw3ls">
-            <input type="button" value="LOGIN" onclick="login()">
-            <p><a href="#">REGISTER NEW ACCOUNT <span>→</span></a></p>
-            <div class="clear"></div>
+<body class="page-login  layout-full page-dark  " id="page_background">
+<div class="page  height-full">
+    <div class="page-content height-full">
+        <div class="page-brand-info vertical-align animation-slide-left hidden-xs">
+            <div class="page-brand vertical-align-middle">
+                <div class="brand">
+                    <img class="brand-img" src="login/public/images/LOGO.png" height="50" alt="Eurasia DSS">
+                    <span class="logo">Eurasia</span>
+                </div>
+                <h3>Eurasia Decision Support System</h3>
+                <ul class="list-icons">
+                    <li>Eurasia Decision Support System 帮助管理人员在教学管理上做出合理的判断与决策。</li>
+                    <li>涵盖学生全生命周期各环节教学数据，从新生入校、在校生、毕业生等数据，为学校招生计划、专业计划调整、日常教学业务、毕业生就业等提供全方位的数据支撑。</li>
+                    <li>提供分院、专业教学日常业务数据并可视化展示，为分院业务发展提供数据支撑。</li>
+                </ul>
+                <div>
+                    <a href="#" target="_blank"  target="_blank" class="btn btn-primary btn-outline">
+                        <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;前台链接</a>
+                    <a href="#" class="btn btn-primary btn-outline margin-left-5">联系我们</a>
+                </div>
+            </div>
         </div>
-    </form>
+        <div id="login" class="page-login-main animation-fade">
+
+            <div class="vertical-align">
+                <div class="vertical-align-middle">
+                    <h2 class="hidden-xs" style="font-size: 24px;">Eurasia</h2>
+                    <p class="hidden-xs">Eurasia Decision Support System</p>
+                    <div class="login-form fv-form fv-form-bootstrap" id="loginForm" novalidate="novalidate">
+                        <button type="submit" class="fv-hidden-submit"
+                                style="display: none; width: 0px; height: 0px;"></button>
+
+                        <div class="form-group has-feedback">
+                            <label class="sr-only" for="user_username">用户名</label>
+                            <input type="text" class="form-control" id="user_username" name="username" placeholder="请输入ID"
+                                   data-fv-field="loginName">
+                            <i class="form-control-feedback" data-fv-icon-for="loginName" style="display: none;"></i>
+                            <small class="help-block" data-fv-validator="notEmpty" data-fv-for="loginName"
+                                   data-fv-result="NOT_VALIDATED" style="display: none;">用户名不能为空
+                            </small>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="sr-only" for="user_password">密码</label>
+                            <input type="password" class="form-control" id="user_password" name="password"
+                                   placeholder="请输入密码" data-fv-field="password">
+                            <i class="form-control-feedback" data-fv-icon-for="password" style="display: none;"></i>
+                            <small class="help-block" data-fv-validator="notEmpty" data-fv-for="password"
+                                   data-fv-result="NOT_VALIDATED" style="display: none;">密码不能为空
+                        </small>
+                        </div>
+                        <div class="col-sm-7">
+                            <button type="submit" class="btn btn-primary btn-block margin-top-10" onclick="login()">登
+                                录
+                            </button>
+                        </div>
+                        <div class="col-sm-5">
+                            <a href="#" target="_blank"  id="echarts" type="button"
+                               class="btn btn-outline btn-success btn-block margin-top-10">
+                                <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;决策中心</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="page-copyright">
+                <p>© 2017
+                    <a href="" target="_blank">Eurasia DSS</a>
+                </p>
+            </footer>
+        </div>
+    </div>
 </div>
-<div class="w3footeragile">
-    <p> &copy; 2018 Sleek Login Form. All Rights Reserved </p>
-</div>
-</body>
-</html>
-<script type="text/javascript">
+<script>
+
+
+</script>
+<script>
+
     function login() {
         var user_username = $("#user_username").val();
         var user_password = $("#user_password").val();
         $.ajax({
-            type:'post',
-            url:'/login',
-            data:{user_username:user_username,user_password:user_password},
-            success:function (data) {
+            type: 'post',
+            url: '/login',
+            data: {user_username: user_username, user_password: user_password},
+            success: function (data) {
                 console.log(data.success);
-                if(data.success){
+                if (data.success) {
                     location.href = "/index";
-                }else{
-                    alert("失败");
+                } else {
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('登录失败:用户名或密码错误',{icon: 2});
+                    });
                 }
             }
         });
     }
+
+    /**
+     * 设置未来(全局)的AJAX请求默认选项
+     * 主要设置了AJAX请求遇到Session过期的情况
+     */
+/*    $.ajaxSetup({
+        type: 'POST',
+        complete: function(xhr,status) {
+            var sessionStatus = xhr.getResponseHeader('sessionstatus');
+            if(sessionStatus == 'timeout') {
+                var top = getTopWinow();
+                var yes = confirm('由于您长时间没有操作, session已过期, 请重新登录.');
+                if (yes) {
+                    top.location.href = '/skynk/index.html';
+                }
+            }
+        }
+    });*/
+
+    /**
+     * 在页面中任何嵌套层次的窗口中获取顶层窗口
+     * @return 当前页面的顶层窗口对象
+     */
+/*    function getTopWinow(){
+        var p = window;
+        while(p != p.parent){
+            p = p.parent;
+        }
+        return p;
+    }*/
 </script>
+</body>
+</html>

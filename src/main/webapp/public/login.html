@@ -22,7 +22,7 @@
             <div class="kit-login-col">
               <i class="layui-icon">&#xe612;</i>
               <span class="kit-login-input">
-                <input type="text" name="loginName" lay-verify="required" placeholder="用户名/邮箱/手机号" />
+                <input type="text" id="user_username"  placeholder="用户名/邮箱/手机号" />
               </span>
             </div>
             <div class="kit-login-col"></div>
@@ -31,7 +31,7 @@
             <div class="kit-login-col">
               <i class="layui-icon">&#xe64c;</i>
               <span class="kit-login-input">
-                <input type="password" name="password" lay-verify="required" placeholder="密码" />
+                <input type="password" id="user_password"  placeholder="密码" />
               </span>
             </div>
             <div class="kit-login-col"></div>
@@ -63,16 +63,27 @@
         layer.msg('请联系管理员.');
       });
       //监听提交
-      form.on('submit(login_hash)', function(data) {
-        layer.msg(JSON.stringify(data.field));
-        setTimeout(function(){
-            location.href='/';
-        },1000);
-
-        return false;
+      form.on('submit(login_hash)', function() {
+          var user_username = $("#user_username").val();
+          var user_password = $("#user_password").val();
+          $.ajax({
+              type: 'post',
+              url: '/login',
+              data: {user_username: user_username, user_password: user_password},
+              success: function (data) {
+                  console.log(data.success);
+                  if (data.success) {
+                      location.href = "/index";
+                  } else {
+                      layui.use('layer', function () {
+                          var layer = layui.layer;
+                          layer.msg('登录失败:用户名或密码错误', {icon: 2, time: 5000});
+                      });
+                  }
+              }
+          });
       });
     });
   </script>
 </body>
-
 </html>
