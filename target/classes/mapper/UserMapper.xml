@@ -6,4 +6,8 @@
     <select id="login" parameterType="edu.eurasia.entity.User" resultType="edu.eurasia.entity.User" >
         select * from user where user_username=#{user_username} and user_password =#{user_password}
     </select>
+
+    <select id="queryProfession" resultType="edu.eurasia.entity.User">
+        select * from user limit 0,10;
+    </select>
 </mapper>

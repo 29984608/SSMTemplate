@@ -157,7 +157,6 @@
             url: '/login',
             data: {user_username: user_username, user_password: user_password},
             success: function (data) {
-                console.log(data.success);
                 if (data.success) {
                     location.href = "/index";
                 } else {
@@ -179,7 +178,6 @@
        $("#login_button").click(function () {
            $("#register").hide();
            $("#login").fadeIn("slow");
-
        });
     });
 </script>

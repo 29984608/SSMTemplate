@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,15 +39,11 @@ public class LoginController {
         }
         return result;
     }
-
-    public Map<String,Object> isNotSession(HttpSession session){
-        Map<String,Object> result = new HashMap<String, Object>();
-        Boolean isNotSession = true;
-        User user = (User) session.getAttribute("userInfo");
-        if (user == null){
-            isNotSession = false;
-        }
-        result.put("isNotSession",isNotSession);
-        return result;
+    @RequestMapping("/queryProfession")
+    @ResponseBody
+    public List<User> queryProfession() throws Exception{
+        List<User> list= loginService.queryProfession();
+        return list;
     }
+
 }
