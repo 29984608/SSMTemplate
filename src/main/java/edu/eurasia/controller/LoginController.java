@@ -41,12 +41,12 @@ public class LoginController {
 
     public Map<String,Object> isNotSession(HttpSession session){
         Map<String,Object> result = new HashMap<String, Object>();
-        Boolean isNos = true;
+        Boolean isNotSession = true;
         User user = (User) session.getAttribute("userInfo");
         if (user == null){
-            isNos = false;
+            isNotSession = false;
         }
-        result.put("isNos",isNos);
+        result.put("isNotSession",isNotSession);
         return result;
     }
 }
