@@ -23,6 +23,7 @@ public interface LoginService {
     Integer queryCount();
     /**
      *分页查询数据
+     * @param pageUtils
      * @return
      */
     List<User> queryProfession(PageUtils pageUtils);

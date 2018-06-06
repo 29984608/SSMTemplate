@@ -16,7 +16,7 @@
     <legend>用户信息管理</legend>
 </fieldset>
 <blockquote class="layui-elem-quote layui-text">
-    <button class="layui-btn layui-icon">&#xe654; 添加信息</button>
+    <button class="layui-btn layui-icon" onclick="addUser()">&#xe654; 添加信息</button>
 </blockquote>
 <div class="layui-form">
     <table class="layui-table">
@@ -43,57 +43,112 @@
 </div>
 <div id="page"></div>
 <script src="/plugins/layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script type="text/javascript">
     layui.use(['laypage', 'layer'], function () {
         var laypage = layui.laypage
-            , layer = layui.layer;
+            , layer = layui.layer,
+         $ = layui.jquery;
         let currentIndex = 1;
         let limitIndex = 10;
-
-        $(function () {
-            $.ajax({
-                type: 'post',
-                url: '/queryCount',
-                success: function (data) {
-                    laypage.render({
-                        elem: 'page'    //
-                        , count: data
-                        , limit: 10
-                        , limits: [100, 300, 500],
-                        jump: function (obj, first) {
-                            currentIndex = obj.curr;
-                            limitIndex = obj.limit;
-                            console.log(currentIndex); //得到当前页，以便向服务端请求对应页的数据。
-                            console.log(limitIndex); //得到每页显示的条数
-                            $.ajax({
-                                type: 'post',
-                                url: '/queryProfession',
-                                data: {
-                                    currentIndex: currentIndex,
-                                    limitIndex: limitIndex
-                                },
-                                success: function (data) {
-                                    for (var i = 0; i < data.length; i++) {
-                                        $("#context").append(`<tr>
+        $.ajax({
+            type: 'post',
+            url: '/queryCount',
+            success: function (data) {
+                laypage.render({
+                    elem: 'page'
+                    , count: data
+                    , limit: 10
+                    , limits: [100, 300, 500],
+                    jump: function (obj, first) {
+                        currentIndex = obj.curr;
+                        limitIndex = obj.limit;
+                        $.ajax({
+                            type: 'post',
+                            url: '/queryProfession',
+                            data: {
+                                currentIndex: currentIndex,
+                                limitIndex: limitIndex
+                            },
+                            success: function (data) {
+                                $("#context").html("");
+                                for (var i = 0; i < data.length; i++) {
+                                    $("#context").append(`<tr>
             <td>` + (i + 1) + `</td>
-            <td>` + data[i]['user_nickname'] + `</td>
+            <td>` + data[i]['user_username'] + `</td>
             <td>` + data[i]['user_nickname'] + `</td>
             <td>` + data[i]['user_password'] + `</td>
-            <td><button class="layui-btn layui-btn-sm layui-icon">&#xe642;编辑</button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger layui-icon">&#xe640;删除</button></td>
+            <td><button class="layui-btn layui-btn-sm layui-icon" onclick="updateUser()">&#xe642;编辑</button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger layui-icon" onclick="deleteUsder()">&#xe640;删除</button></td>
         </tr>`);
-                                    }
                                 }
-                            });
-                        }
-                    });
-                }
-            });
+                            }
+                        });
+                    }
+                });
+            }
+
         });
+
+        function updateUser() {
+            alert(22);
+        }
+
+        function deleteUsder() {
+            alert(333);
+        }
 
     });
 
+    function addUser() {
+
+            , layer = layui.layer;
+        alert(11);
+    }
 </script>
 </body>
+<div id="user_update" style="display: none">
+    <form class="layui-form" action="${pageContext.request.contextPath}/AdminServlet?method=Admin_updateInfo"
+          method="post">
+        <div style="width: 20px;"></div>
+        <div class="huan_a"></div>
+        <div class="layui-form-item">
+            <input type="hidden" name="s_id">
+            <label class="layui-form-label">学号</label>
+            <div class="layui-input-inline">
+                <input style="background:#F6F6F6" name="s_studentid1" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input style="background:#F6F6F6" name="s_username1" autocomplete="off" class="layui-input">
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <input style="background:#F6F6F6" name="s_sex1" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">班级</label>
+            <div class="layui-input-inline">
+                <input style="background:#F6F6F6" name="s_class1" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input style="background:#F6F6F6" type="text" name="s_password1" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div style="width: 20px; "></div>
+        <div class="layui-input-block huan_center">
+            <button class="layui-btn" lay-submit="" type="submit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </form>
+</div>
 </html>
+
