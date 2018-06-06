@@ -7,7 +7,11 @@
         select * from user where user_username=#{user_username} and user_password =#{user_password}
     </select>
 
-    <select id="queryProfession" resultType="edu.eurasia.entity.User">
-        select * from user limit 0,10;
+    <select id="queryProfession" parameterType="edu.eurasia.untils.PageUtils" resultType="edu.eurasia.entity.User">
+        select * from user limit #{currentIndex},#{limitIndex};
+    </select>
+
+    <select id="queryCount" resultType="Integer">
+        SELECT COUNT(*) FROM USER;
     </select>
 </mapper>

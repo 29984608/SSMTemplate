@@ -1,6 +1,7 @@
 package edu.eurasia.dao;
 
 import edu.eurasia.entity.User;
+import edu.eurasia.untils.PageUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -12,14 +13,22 @@ import java.util.Map;
 public interface LoginDao {
     /**
      * 登录
+     *
      * @param user
-     * @return
+     * @return User
      */
     User login(User user);
 
     /**
-     * 分页查询数据
-     * @return
+     * 查询数据总数
+     * @return Integer
      */
-    List<User> queryProfession();
+    Integer queryCount();
+
+    /**
+     * 分页查询数据
+     * @param pageUtils
+     * @return  List<User>
+     */
+    List<User> queryProfession(PageUtils pageUtils);
 }

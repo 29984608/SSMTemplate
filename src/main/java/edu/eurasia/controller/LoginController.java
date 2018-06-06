@@ -2,8 +2,11 @@ package edu.eurasia.controller;
 
 import edu.eurasia.entity.User;
 import edu.eurasia.service.LoginService;
+import edu.eurasia.untils.PageUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,9 +44,15 @@ public class LoginController {
     }
     @RequestMapping("/queryProfession")
     @ResponseBody
-    public List<User> queryProfession() throws Exception{
-        List<User> list= loginService.queryProfession();
+    public List<User> queryProfession(PageUtils pageUtils) throws Exception{
+        List<User> list= loginService.queryProfession(pageUtils);
         return list;
+    }
+    @RequestMapping("/queryCount")
+    @ResponseBody
+    public Integer queryCount() throws Exception{
+        int countNum = loginService.queryCount();
+        return countNum;
     }
 
 }
